@@ -1,3 +1,5 @@
+package bus;
+
 import java.util.UUID;
 
 public sealed interface RouterMsg {

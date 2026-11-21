@@ -1,6 +1,6 @@
 package elevatorcontroller;
 
-import bus.SoftwareBusWrapper;
+import common.SoftwareBusWrapper;
 import common.SoftwareBusApi;
 import motionmechanics.MockMotionController;
 

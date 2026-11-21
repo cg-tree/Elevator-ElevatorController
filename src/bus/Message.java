@@ -1,3 +1,5 @@
+package bus;
+
 public record Message(int topic, int subtopic, int body) {
 
     @Override
