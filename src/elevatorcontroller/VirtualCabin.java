@@ -1,105 +1,62 @@
 package elevatorcontroller;
 
+import bus.Message;
+import bus.SoftwareBus;
+import common.Direction;
+import common.MotionCommand;
 import common.SoftwareBusApi;
 
 import java.util.UUID;
-import java.util.function.Consumer;
 
-public class VirtualCabin implements CabinApi{
-    private UUID id;
-    private SoftwareBusApi busApi;
+public class VirtualCabin{
 
-    private boolean isinmotion;
-    private int currentfloor = 1;
+    private boolean poweredOn=false;
+    private final SoftwareBusApi bus;
+    private final UUID id;
+    private final int elevatorNum;// 1-4
 
-    public Consumer<Integer> onLocationChangeCallBack;
-    public Consumer<Integer> onServiceCallBack;
-    public Consumer<DisplayApi.DirectionOfTravel> onDirectionChangeCallBack;
-    /**
-     * Check if the cabin is in motion.
-     */
-    @Override
-    public boolean isInMotion() {
-        return isinmotion;
+    private int currentFloor = 1;
+    private double t = 0;
+    private Action nextAction = null;
+    private enum Action { STOP, WAIT }
+    private Double nextActionAt = null;
+    private Integer destinationFloor = null;
+
+
+    public VirtualCabin(SoftwareBusApi bus, int elevatorNum){
+        this.bus = bus;
+        id = bus.register();
+        this.elevatorNum = elevatorNum;
     }
 
-    /**
-     * Get the floor where the cabin is, according to the midpoint of the cabin.
-     */
-    @Override
-    public int currentFloor() {
-        return currentfloor;
+    private void send(MotionCommand cmd){
+        bus.publish(id, new Message(cmd.topic().encode(), elevatorNum, (int)cmd.body()));
+    }
+    private void travel(Direction dir, int nFloors) {
+        if (nextAction != null) {
+            // Disallow a new action until the current one has finished.
+            return;
+        }
+
+        if(dir == Direction.UP){
+            send(MotionCommand.START_UP);
+
+        }else if(dir == Direction.DOWN){
+            send(MotionCommand.START_DOWN);
+        }
+        nextAction = Action.STOP;
+        nextActionAt = t + nFloors;
     }
 
-    /**
-     * Direct the cabin to travel to the indicated floor.
-     * @param floor
-     */
-    @Override
-    public void travelTo(int floor) {
-
+    private void travelToFloor(int destFloor) {
+        if (destFloor < 1 || 10 < destFloor || destFloor == currentFloor) {
+            return;
+        }
+        destinationFloor = destFloor;
+        int nFloors = Math.abs(currentFloor - destFloor);
+        Direction dir = (currentFloor - destFloor) > 0 ? Direction.DOWN : Direction.UP;
+        travel(dir, nFloors);
     }
 
-    /**
-     * Register a callback that will be called whenever location changes.
-     *
-     * @param callback
-     */
-    @Override
-    public void onLocationChange(Consumer<Integer> callback) {
-        onDirectionChangeCallBack
-    }
 
-    /**
-     * Register a callback that will be called whenever the cabin arrives at a floor and opens the cabin
-     * doors.
-     *
-     * @param callback
-     */
-    @Override
-    public void onService(Consumer<Integer> callback) {
-
-    }
-
-    /**
-     * Register a callback that will be called whenever direction of travel changes.
-     *
-     * @param callback
-     */
-    @Override
-    public void onDirectionChange(Consumer<DisplayApi.DirectionOfTravel> callback) {
-
-    }
-
-    /**
-     * Register a callback that will be called whenever location changes.
-     *
-     * @param callback
-     */
-    @Override
-    public void registerOnLocationChange(Consumer<Integer> callback) {
-        onLocationChange = callback;
-    }
-
-    /**
-     * Register a callback that will be called whenever the cabin arrives at a floor and opens the cabin
-     * doors.
-     * **DING**
-     * // publish beep
-     * @param callback
-     */
-    @Override
-    public void registerOnService(Consumer<Integer> callback) {
-        onService = callback;
-    }
-
-    /**
-     * Register a callback that will be called whenever direction of travel changes.
-     *
-     * @param callback
-     */
-    @Override
-    public void registerOnDirectionChange(Consumer<DisplayApi.DirectionOfTravel> callback) {
-
-    }
 }
