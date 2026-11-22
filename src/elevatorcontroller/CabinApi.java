@@ -8,6 +8,7 @@ package elevatorcontroller;
 public interface CabinApi {
     /**
      * Check if the cabin is stopped.
+     * state tracking Do Not Republish
      */
     boolean stopped();
 

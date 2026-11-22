@@ -23,7 +23,6 @@ public class Topics {
 
     // Motor:
     public static final int ALIGNMENT = 11;
-    // BODY = { floorNumber: int, case: LOWER | UPPER | BOTH }
     public static final int STOPPED = 12;
 
     // Cabin Panel:
