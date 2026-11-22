@@ -38,7 +38,7 @@ public class SoftwareBusWrapper implements SoftwareBusApi {
     public Message getMsg(UUID id, int topic, int subtopic) {
         Message msg = bus.getMsg(id, topic, subtopic);
         if (msg != null) {
-            IO.println("--- TOPIC = " + Topic.decode(topic) + " ---");
+            IO.println("--- TOPIC = " + topic + " ---");
             IO.println(msg);
         }
         return msg;

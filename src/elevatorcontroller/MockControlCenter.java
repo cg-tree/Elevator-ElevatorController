@@ -2,24 +2,22 @@ package elevatorcontroller;
 
 import common.SoftwareBusWrapper;
 import common.SoftwareBusApi;
-import motionmechanics.MockMotionController;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * A development mock that drives the motion mechanics using the software bus.
- * <p/>
- * In the real system, the ElevatorController will listen for messages from the manager on the bus and translate those
- * into commands sent to the motion subsystem.
+ * A development mock acts like a Control Center to drive the Elevator Controller during development.
+ * The Elevator Controller responds to commands from the Control Center, so to test out our Elevator Controller we need
+ * something that acts like a Control Center.
+ * <p />
+ * Not yet implemented. The skeleton is from the motion mechanics repo.
  */
-public class MockElevatorController {
+public class MockControlCenter {
 
     static void main() {
         SoftwareBusApi bus = new SoftwareBusWrapper();
-        MockMotionController mockMotion = new MockMotionController(bus, 1);
 
         // We don't want the timer to shut down when we hit the end of main(), so don't wrap
         // in a try-with-resource.
@@ -29,7 +27,7 @@ public class MockElevatorController {
         timer.scheduleAtFixedRate(() -> {
            try {
                long now = System.nanoTime();
-               mockMotion.tick((now - last.getAndSet(now)) / 1e9);
+               // TODO: THIS IS WHERE WE WOULD DRIVE THE ELEVATOR CONTROLLER!
            } catch (Throwable e) {
                e.printStackTrace();
            }

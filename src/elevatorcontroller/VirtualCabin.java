@@ -1,10 +1,11 @@
 package elevatorcontroller;
 
 import bus.Message;
-import bus.SoftwareBus;
+import common.BusMessage;
 import common.Direction;
-import common.MotionCommand;
 import common.SoftwareBusApi;
+import common.Topics;
+import messages.MotionCommandMessage;
 
 import java.util.UUID;
 
@@ -29,8 +30,9 @@ public class VirtualCabin{
         this.elevatorNum = elevatorNum;
     }
 
-    private void send(MotionCommand cmd){
-        bus.publish(id, new Message(cmd.topic().encode(), elevatorNum, (int)cmd.body()));
+    private void send(MotionCommandMessage cmd){
+        // TODO: UNIMPLEMENTED! We need to encode the MotorCommand to a SoftwareBus message.
+//        bus.publish(id, new Message(cmd.topic().encode(), elevatorNum, (int)cmd.body()));
     }
     private void travel(Direction dir, int nFloors) {
         if (nextAction != null) {
@@ -39,10 +41,10 @@ public class VirtualCabin{
         }
 
         if(dir == Direction.UP){
-            send(MotionCommand.START_UP);
+            send(MotionCommandMessage.START_UP);
 
         }else if(dir == Direction.DOWN){
-            send(MotionCommand.START_DOWN);
+            send(MotionCommandMessage.START_DOWN);
         }
         nextAction = Action.STOP;
         nextActionAt = t + nFloors;

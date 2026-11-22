@@ -10,8 +10,9 @@ public class Topics {
     // Elevator Controller:
     public static final int ARRIVED = 2;
     public static final int MOVE_DOOR = 3;
-    public static final int MOTOR_START = 4;
-    public static final int MOTOR_STOP = 5;
+//    public static final int MOTOR_START = 4;
+//    public static final int MOTOR_STOP = 5;
+    public static final int MOTION_COMMAND = 4; // TODO: NOT APPROVED BY TOPICS TEAM YET!
     public static final int BEEP = 6;
     public static final int BUZZER = 7;
 
@@ -22,6 +23,7 @@ public class Topics {
 
     // Motor:
     public static final int ALIGNMENT = 11;
+    // BODY = { floorNumber: int, case: LOWER | UPPER | BOTH }
     public static final int STOPPED = 12;
 
     // Cabin Panel:
