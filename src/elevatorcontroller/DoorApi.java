@@ -6,14 +6,9 @@ package elevatorcontroller;
  */
 public interface DoorApi {
     /**
-     * @return True if the door is currently fully open, False otherwise.
+     * @return True if the door is partially or fully open. False if the door is fully closed.
      */
-    boolean isFullyOpen();
-
-    /**
-     * @return True if the door is currently fully closed, False otherwise.
-     */
-    boolean isFullyClosed();
+    boolean isDoorOpen();
 
     /**
      * @return True if the door's obstruction sensor is currently triggered, false otherwise.
@@ -21,9 +16,9 @@ public interface DoorApi {
     boolean isObstructed();
 
     /**
-     * @return True if the overweight sensors is currently triggered, false otherwise.
+     * @return True if the overloaded sensors is currently triggered, false otherwise.
      */
-    boolean isOverweight();
+    boolean isOverloaded();
 
     /**
      * Open the door.
@@ -31,7 +26,7 @@ public interface DoorApi {
     void openDoor();
 
     /**
-     * Try to close the door. Closing may fail if an overweight sensor is triggered any time before closing completes.
+     * Close the door.
      */
-    boolean closeDoor();
+    void closeDoor();
 }

@@ -1,6 +1,9 @@
 package elevatorcontroller;
 
 /**
+ * THE CURRENT PLAN IS TO MOVE ALL THIS LOGIC OTHER VIRTUAL DEVICES.
+ *
+ *
  * API exposed by the Display virtual device. Used by the Elevator Controller.
  * The Display virtual device sends display information to other subsystems using the software bus.
  */

@@ -1,3 +1,5 @@
+package common;
+
 /**
  * Class that contains values for all topics.
  */
