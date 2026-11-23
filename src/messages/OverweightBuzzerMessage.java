@@ -3,8 +3,11 @@ package messages;
 import common.BusMessage;
 import common.Topics;
 
-public record OverweightBuzzerMessage() implements BusMessage {
-
+public record OverweightBuzzerMessage(int cmd) implements BusMessage {
+    public static class BuzzerCommand{
+        public static final int BUZZER_ON = 1;
+        public static final int BUZZER_OFF = 0;
+    }
 
     @Override
     public int topic() {
@@ -13,10 +16,10 @@ public record OverweightBuzzerMessage() implements BusMessage {
 
     @Override
     public int body() {
-        return 0;
+        return cmd;
     }
 
     public OverweightBuzzerMessage fromBody(int body){
-        return new OverweightBuzzerMessage();
+        return new OverweightBuzzerMessage( body & BuzzerCommand.BUZZER_ON);//sanitize body
     }
 }

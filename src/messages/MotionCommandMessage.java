@@ -1,8 +1,9 @@
 package messages;
 
+import common.BusMessage;
 import common.Topics;
 
-public enum MotionCommandMessage {
+public enum MotionCommandMessage implements BusMessage {
     START_UP(0),
     START_DOWN(1),
     STOP(2),
@@ -20,7 +21,7 @@ public enum MotionCommandMessage {
         return encoding;
     }
 
-    public static MotionCommandMessage fromBody(int body) {
+    public MotionCommandMessage fromBody(int body) {
         for (MotionCommandMessage cmd : values()) {
             if (cmd.encoding == body) return cmd;
         }

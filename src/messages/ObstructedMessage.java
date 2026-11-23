@@ -4,7 +4,10 @@ import common.BusMessage;
 import common.Topics;
 
 public record ObstructedMessage(boolean isObstructed) implements BusMessage {
-
+    public static class Body{
+        public final static int OBSTRUCTED = 1;
+        public final static int NOT_OBSTRUCTED = 0;
+    }
     @Override
     public int topic() {
         return Topics.OBSTRUCTION;
@@ -13,13 +16,13 @@ public record ObstructedMessage(boolean isObstructed) implements BusMessage {
     @Override
     public int body() {
         if(isObstructed){
-            return 1;
+            return Body.OBSTRUCTED;
         }
-        return 0;//0 or 1
+        return Body.NOT_OBSTRUCTED;
     }
 
     @Override
     public ObstructedMessage fromBody(int body) {
-        return new ObstructedMessage(false);
+        return new ObstructedMessage(body == Body.OBSTRUCTED);
     }
 }

@@ -6,7 +6,7 @@ import common.Topics;
 public record ServiceMessage(int floor) implements BusMessage {
 
     @Override
-    public int topic() {
+    public int topic(){
         return Topics.SERVICE;
     }
 

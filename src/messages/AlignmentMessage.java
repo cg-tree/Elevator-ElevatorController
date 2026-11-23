@@ -6,14 +6,18 @@ import common.Topics;
 public record AlignmentMessage(int floor, ActiveSensors sensors) implements BusMessage {
 
     public enum ActiveSensors {
-        UPPER(0),
-        LOWER(1),
-        BOTH(2);
+        UPPER(1),
+        LOWER(2),
+        BOTH(3);
 
         public final int encoding;
         ActiveSensors(int encoding) { this.encoding = encoding; }
     }
-
+    public class SensorMask{
+        public final static int BOTH=3;
+        public final static int UPPER=1;
+        public final static int LOWER=2;
+    }
 
     @Override
     public int body() {
@@ -26,6 +30,15 @@ public record AlignmentMessage(int floor, ActiveSensors sensors) implements BusM
     }
 
     public AlignmentMessage fromBody(int body) {
+        int floor = body>>2;
+        int sensors = body & SensorMask.BOTH;
+        if(sensors == SensorMask.BOTH){
+            return new AlignmentMessage(floor, ActiveSensors.BOTH);
+        } else if (sensors == SensorMask.UPPER){
+            return new AlignmentMessage(floor,ActiveSensors.UPPER);
+        } else if (sensors == SensorMask.LOWER){
+            return new AlignmentMessage(floor, ActiveSensors.LOWER);
+        }
         throw new UnsupportedOperationException();
     }
 }

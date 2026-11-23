@@ -5,7 +5,6 @@ import common.Topics;
 
 public record ArrivalBeepMessage(int floor) implements BusMessage {
 
-
     @Override
     public int topic() {
         return Topics.BEEP;
