@@ -3,7 +3,7 @@ package messages;
 import common.BusMessage;
 import common.Topics;
 
-public record OverweightBuzzerMessage(int cmd) implements BusMessage {
+public record OverLoadedBuzzerMessage(int cmd) implements BusMessage {
     public static class BuzzerCommand{
         public static final int BUZZER_ON = 1;
         public static final int BUZZER_OFF = 0;
@@ -19,7 +19,7 @@ public record OverweightBuzzerMessage(int cmd) implements BusMessage {
         return cmd;
     }
 
-    public OverweightBuzzerMessage fromBody(int body){
-        return new OverweightBuzzerMessage( body & BuzzerCommand.BUZZER_ON);//sanitize body
+    public OverLoadedBuzzerMessage fromBody(int body){
+        return new OverLoadedBuzzerMessage( body & BuzzerCommand.BUZZER_ON);//sanitize body
     }
 }

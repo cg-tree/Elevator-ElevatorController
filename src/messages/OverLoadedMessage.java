@@ -3,7 +3,7 @@ package messages;
 import common.BusMessage;
 import common.Topics;
 
-public record OverweightMessage(boolean isOverweight)implements BusMessage {
+public record OverLoadedMessage(boolean isOverweight)implements BusMessage {
 
     public static class Body{
         public final static int OVERWEIGHT = 1;
@@ -23,10 +23,10 @@ public record OverweightMessage(boolean isOverweight)implements BusMessage {
     }
 
     @Override
-    public OverweightMessage fromBody(int body) {
+    public OverLoadedMessage fromBody(int body) {
         if(body == Body.OVERWEIGHT){
-            return new OverweightMessage(true);
+            return new OverLoadedMessage(true);
         }
-        return new OverweightMessage(false);
+        return new OverLoadedMessage(false);
     }
 }

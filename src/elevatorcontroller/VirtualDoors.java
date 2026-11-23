@@ -1,9 +1,7 @@
 package elevatorcontroller;
 
 import bus.Message;
-import bus.SoftwareBus;
 import common.SoftwareBusApi;
-import common.Topics;
 import messages.*;
 
 import java.util.UUID;
@@ -23,7 +21,7 @@ public class VirtualDoors implements DoorApi{
         bus.subscribe(id,openMsg.topic(),elevatorNum);
         var obstructedMsg = new ObstructedMessage(false);
         bus.subscribe(id,obstructedMsg.topic(),elevatorNum);
-        var overloadedMsg = new OverweightMessage(false);
+        var overloadedMsg = new OverLoadedMessage(false);
         bus.subscribe(id,overloadedMsg.topic(),elevatorNum);
     }
     /**
@@ -71,7 +69,7 @@ public class VirtualDoors implements DoorApi{
     }
 
     private void updateOverloaded() {
-        OverweightMessage overloadedMessage = new OverweightMessage(overloaded);
+        OverLoadedMessage overloadedMessage = new OverLoadedMessage(overloaded);
         Message msg = bus.getMsg(id,overloadedMessage.topic(),elevatorNum);
         while(msg != null) {
             overloaded = (overloadedMessage.fromBody(msg.body())).isOverweight();
