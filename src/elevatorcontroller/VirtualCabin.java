@@ -41,6 +41,7 @@ public class VirtualCabin implements CabinApi{
         Message msg = bus.getMsg(id, Topics.STOPPED, elevatorNum);
         while(msg != null){
             isStopped = ( motorStoppedMessage.fromBody( msg.body() )).isStopped();
+            msg = bus.getMsg(id, Topics.STOPPED, elevatorNum);
         }
     }
     /**
