@@ -1,5 +1,6 @@
 package messages;
 
+import bus.Message;
 import common.BusMessage;
 import common.Topics;
 
