@@ -21,7 +21,8 @@ public record AlignmentMessage(int floor, ActiveSensors sensors) implements BusM
 
     @Override
     public int body() {
-        return -1;
+        // Inverse of fromBody: floor in the high bits, sensor mask in the low 2 bits.
+        return (floor << 2) | sensors.encoding;
     }
 
     @Override
