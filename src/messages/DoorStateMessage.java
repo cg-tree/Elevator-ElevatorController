@@ -1,7 +1,6 @@
 package messages;
 
 import common.BusMessage;
-import common.Topics;
 
 public record DoorStateMessage(boolean isOpen)implements BusMessage {
 

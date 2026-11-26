@@ -1,10 +1,9 @@
 package elevatorcontroller;
 
 import bus.Message;
-import common.BusMessage;
 import common.Direction;
 import common.SoftwareBusApi;
-import common.Topics;
+import messages.Topics;
 import messages.ArrivalBeepMessage;
 import messages.CabinArrivalMessage;
 import messages.MotionCommandMessage;

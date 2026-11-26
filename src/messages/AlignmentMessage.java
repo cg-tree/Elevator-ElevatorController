@@ -1,7 +1,6 @@
 package messages;
 
 import common.BusMessage;
-import common.Topics;
 
 public record AlignmentMessage(int floor, ActiveSensors sensors) implements BusMessage {
 

@@ -1,7 +1,6 @@
 package messages;
 
 import common.BusMessage;
-import common.Topics;
 
 public record ObstructedMessage(boolean isObstructed) implements BusMessage {
     public static class Body{

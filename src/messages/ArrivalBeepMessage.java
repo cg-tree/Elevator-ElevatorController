@@ -1,8 +1,6 @@
 package messages;
 
-import bus.Message;
 import common.BusMessage;
-import common.Topics;
 
 public record ArrivalBeepMessage(int floor) implements BusMessage {
 

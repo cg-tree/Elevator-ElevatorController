@@ -1,7 +1,6 @@
 package messages;
 
 import common.BusMessage;
-import common.Topics;
 
 public record MoveDoorMessage(DOOR_CMD cmd)implements BusMessage {
     public enum DOOR_CMD{

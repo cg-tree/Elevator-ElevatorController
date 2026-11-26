@@ -21,5 +21,10 @@ public class Manager {
         CabinApi cabin = new VirtualCabin(bus, elevatorNumber);
         DoorApi door = new VirtualDoors(bus, elevatorNumber);
         ElevatorController elevatorController = new ElevatorController(controlCenter, cabin, door);
+        elevatorController.run();
+    }
+
+    static void main() {
+        new Manager(1);
     }
 }

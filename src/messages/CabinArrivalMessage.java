@@ -2,7 +2,6 @@ package messages;
 
 import common.BusMessage;
 import common.Direction;
-import common.Topics;
 
 public record CabinArrivalMessage(int floor, boolean stopped, Direction directionOfTravel) implements BusMessage {
     public static class Body{

@@ -1,7 +1,6 @@
 package messages;
 
 import common.BusMessage;
-import common.Topics;
 
 public enum MotionCommandMessage implements BusMessage {
     START_UP(0),

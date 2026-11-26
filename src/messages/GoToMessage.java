@@ -1,7 +1,6 @@
 package messages;
 
 import common.BusMessage;
-import common.Topics;
 
 public record GoToMessage(int floor) implements BusMessage {
     @Override

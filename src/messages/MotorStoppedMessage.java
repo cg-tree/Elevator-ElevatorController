@@ -1,7 +1,6 @@
 package messages;
 
 import common.BusMessage;
-import common.Topics;
 
 public record MotorStoppedMessage(boolean isStopped) implements BusMessage {
     @Override
