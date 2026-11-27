@@ -5,8 +5,10 @@ import common.SoftwareBusApi;
 import messages.AlignmentMessage;
 
 /**
- * Note: THIS ASSUMES THE LOWER SENSOR OFFSET IS 0!
- * Note: cabin position is relative to the bottom of the cabin.
+ * - THIS ASSUMES THE LOWER SENSOR OFFSET IS 0!
+ * - Cabin position is the position of the very bottom of the cabin.
+ * - Assumes we start stopped at floor 1.
+ * - Treats "nudging" as *not* stopped.
  */
 public class VirtualCabin2 {
     /// Floor to floor height.
@@ -17,17 +19,20 @@ public class VirtualCabin2 {
     private static final double MAX_SPEED = FLOOR_H;
     /// Acceleration in meters per seconds.
     private static final double ACC = FLOOR_H;
-    
+
     private final SoftwareBusApi bus;
 
     private AlignmentMessage lastAlign = new AlignmentMessage(1, AlignmentMessage.ActiveSensors.BOTH);
     private Direction directionOfTravel = null;
-    private Integer destination = null;
-    private boolean stopped = true;
+    private State state = new State.StoppedAt(1);
 
     public VirtualCabin2(SoftwareBusApi bus) { this.bus = bus; }
 
+
     private void goToFloor(int floor) {
+        if (state instanceof State.TransittingTo) {
+            return;
+        }
 
     }
 
@@ -78,5 +83,10 @@ public class VirtualCabin2 {
         // Travel dist while still accelerating. Need to solve dist = v*t + 0.5*ACC*t^2.
         // Rearranged form of (-v + sqrt(v^2 + 2*ACC*dist)) / ACC that avoids cancellation when v is large.
         return 2 * dist / (initialSpeed + Math.sqrt(initialSpeed * initialSpeed + 2 * ACC * dist));
+    }
+
+    private sealed interface State {
+        record StoppedAt(int floor) implements State {};
+        record TransittingTo(int floor) implements State {};
     }
 }
