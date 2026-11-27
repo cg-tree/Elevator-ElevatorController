@@ -5,6 +5,7 @@ import common.BusMessage;
 public record AlignmentMessage(int floor, ActiveSensors sensors) implements BusMessage {
 
     public enum ActiveSensors {
+        NONE(0),
         UPPER(1),
         LOWER(2),
         BOTH(3);
@@ -13,6 +14,7 @@ public record AlignmentMessage(int floor, ActiveSensors sensors) implements BusM
         ActiveSensors(int encoding) { this.encoding = encoding; }
     }
     public class SensorMask{
+        public final static int NONE=0;
         public final static int BOTH=3;
         public final static int UPPER=1;
         public final static int LOWER=2;
@@ -38,6 +40,8 @@ public record AlignmentMessage(int floor, ActiveSensors sensors) implements BusM
             return new AlignmentMessage(floor,ActiveSensors.UPPER);
         } else if (sensors == SensorMask.LOWER){
             return new AlignmentMessage(floor, ActiveSensors.LOWER);
+        } else if (sensors == SensorMask.NONE){
+            return new AlignmentMessage(floor, ActiveSensors.NONE);
         }
         throw new UnsupportedOperationException();
     }
